@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GeneralExceptionHandler {
 
-
     @ExceptionHandler(AmountIsTooLargeException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Response handleAmountsIsTooLargeEx(AmountIsTooLargeException e) {
