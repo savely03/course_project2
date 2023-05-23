@@ -19,7 +19,7 @@ public class JavaQuestionService implements QuestionService {
 
     public JavaQuestionService() {
         this.questions = new ArrayList<>();
-        random = new Random();
+        this.random = new Random();
     }
 
     @Override
