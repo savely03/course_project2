@@ -10,37 +10,38 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class MathQuestionRepositoryTest {
 
-    private final QuestionRepository questionRepository = new MathQuestionRepository();
+    private final QuestionRepository out = new MathQuestionRepository();
 
     @BeforeEach
     void setUp() {
-        questionRepository.add(MATH_QUESTION_OBJECT);
+        out.add(MATH_QUESTION_OBJECT);
     }
 
     @Test
     void containsTest() {
-        assertThat(questionRepository.contains(MATH_QUESTION_OBJECT)).isTrue();
-        assertThat(questionRepository.contains(QUESTION_OBJECT)).isFalse();
+        assertThat(out.contains(MATH_QUESTION_OBJECT)).isTrue();
+        assertThat(out.contains(QUESTION_OBJECT)).isFalse();
     }
 
     @Test
     void add() {
-        int initialSize = questionRepository.getAll().size();
+        int initialSize = out.getAll().size();
 
-        assertThat(questionRepository.add(MATH_QUESTION_OBJECT)).isEqualTo(MATH_QUESTION_OBJECT);
-        assertThat(questionRepository.getAll()).hasSize(initialSize + 1);
+        assertThat(out.add(MATH_QUESTION_OBJECT)).isEqualTo(MATH_QUESTION_OBJECT);
+        assertThat(out.getAll()).hasSize(initialSize + 1);
     }
 
     @Test
     void remove() {
-        int initialSize = questionRepository.getAll().size();
+        int initialSize = out.getAll().size();
 
-        assertThat(questionRepository.remove(MATH_QUESTION_OBJECT)).isEqualTo(MATH_QUESTION_OBJECT);
-        assertThat(questionRepository.getAll()).hasSize(initialSize - 1);
+        assertThat(out.remove(MATH_QUESTION_OBJECT)).isEqualTo(MATH_QUESTION_OBJECT);
+        assertThat(out.getAll()).hasSize(initialSize - 1);
     }
 
     @Test
     void getAll() {
-        assertThat(questionRepository.getAll()).hasSize(1);
+        assertThat(out.getAll()).hasSize(1).containsOnly(MATH_QUESTION_OBJECT);
+
     }
 }
