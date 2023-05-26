@@ -27,7 +27,7 @@ public class ExaminerServiceImpl implements ExaminerService {
         }
 
         while (uniqueQuestions.size() < amount) {
-            uniqueQuestions.add(mathQuestionService.getRandomQuestion());
+            uniqueQuestions.add(questionService.getRandomQuestion());
         }
 
         return uniqueQuestions;
