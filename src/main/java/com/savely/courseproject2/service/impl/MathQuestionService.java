@@ -9,19 +9,19 @@ import com.savely.courseproject2.service.QuestionService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Random;
 
 @Service
-public class JavaQuestionService implements QuestionService {
+public class MathQuestionService implements QuestionService {
 
     private final QuestionRepository questionRepository;
     private final Random random;
 
-    public JavaQuestionService(@Qualifier("javaQuestionRepository") QuestionRepository questionRepository) {
+    public MathQuestionService(@Qualifier("mathQuestionRepository") QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
         random = new Random();
-
     }
 
     @Override

@@ -34,17 +34,32 @@ class ExaminerServiceImplTest {
     }
 
     @Test
-    void getQuestionsTest() {
+    void getJavaQuestionsTest() {
         when(questionService.getRandomQuestion()).thenReturn(QUESTIONS.get(random.nextInt(QUESTIONS.size())));
 
-        assertThat(out.getQuestions(1))
+        assertThat(out.getJavaQuestions(1))
                 .hasSize(1).containsAnyElementsOf(QUESTIONS);
     }
 
     @Test
-    void getQuestionWhenAmountIsTooLarge() {
+    void getJavaQuestionWhenAmountIsTooLarge() {
         assertThatExceptionOfType(AmountIsTooLargeException.class).isThrownBy(
-                () -> out.getQuestions(QUESTIONS.size() + 1)
+                () -> out.getJavaQuestions(QUESTIONS.size() + 1)
+        );
+    }
+
+    @Test
+    void getMathQuestionsTest() {
+        when(questionService.getRandomQuestion()).thenReturn(QUESTIONS.get(random.nextInt(QUESTIONS.size())));
+
+        assertThat(out.getMathQuestions(1))
+                .hasSize(1).containsAnyElementsOf(QUESTIONS);
+    }
+
+    @Test
+    void getMathQuestionWhenAmountIsTooLarge() {
+        assertThatExceptionOfType(AmountIsTooLargeException.class).isThrownBy(
+                () -> out.getMathQuestions(QUESTIONS.size() + 1)
         );
     }
 }
