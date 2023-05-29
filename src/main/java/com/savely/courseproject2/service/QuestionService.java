@@ -14,4 +14,5 @@ public interface QuestionService {
 
     Question getRandomQuestion();
 
+    int getQuestionsAmount();
 }

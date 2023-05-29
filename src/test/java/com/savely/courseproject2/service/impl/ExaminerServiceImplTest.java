@@ -30,21 +30,21 @@ class ExaminerServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        when(questionService.getAll()).thenReturn(QUESTIONS);
+        when(questionService.getQuestionsAmount()).thenReturn(1);
     }
 
     @Test
     void getJavaQuestionsTest() {
         when(questionService.getRandomQuestion()).thenReturn(QUESTIONS.get(random.nextInt(QUESTIONS.size())));
 
-        assertThat(out.getJavaQuestions(1))
+        assertThat(out.getQuestions(1))
                 .hasSize(1).containsAnyElementsOf(QUESTIONS);
     }
 
     @Test
     void getJavaQuestionWhenAmountIsTooLarge() {
         assertThatExceptionOfType(AmountIsTooLargeException.class).isThrownBy(
-                () -> out.getJavaQuestions(QUESTIONS.size() + 1)
+                () -> out.getQuestions(QUESTIONS.size() + 1)
         );
     }
 
@@ -52,14 +52,14 @@ class ExaminerServiceImplTest {
     void getMathQuestionsTest() {
         when(questionService.getRandomQuestion()).thenReturn(QUESTIONS.get(random.nextInt(QUESTIONS.size())));
 
-        assertThat(out.getMathQuestions(1))
+        assertThat(out.getQuestions(1))
                 .hasSize(1).containsAnyElementsOf(QUESTIONS);
     }
 
     @Test
     void getMathQuestionWhenAmountIsTooLarge() {
         assertThatExceptionOfType(AmountIsTooLargeException.class).isThrownBy(
-                () -> out.getMathQuestions(QUESTIONS.size() + 1)
+                () -> out.getQuestions(QUESTIONS.size() + 1)
         );
     }
 }

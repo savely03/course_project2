@@ -1,60 +1,66 @@
 package com.savely.courseproject2.service.impl;
 
-import com.savely.courseproject2.exception.ListOfQuestionsIsEmptyException;
-import com.savely.courseproject2.exception.QuestionAlreadyAddedException;
-import com.savely.courseproject2.exception.QuestionNotFoundException;
+import com.savely.courseproject2.exception.MethodNotAllowedException;
 import com.savely.courseproject2.model.Question;
-import com.savely.courseproject2.repository.QuestionRepository;
 import com.savely.courseproject2.service.QuestionService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class MathQuestionService implements QuestionService {
 
-    private final QuestionRepository questionRepository;
+    private final List<String> questions;
+
+    private final List<String> answers;
+
     private final Random random;
 
-    public MathQuestionService(@Qualifier("mathQuestionRepository") QuestionRepository questionRepository) {
-        this.questionRepository = questionRepository;
+    public MathQuestionService(@Qualifier("getQuestions") List<String> questions,
+                               @Qualifier("getAnswers") List<String> answers) {
+        this.questions = questions;
+        this.answers = answers;
         random = new Random();
     }
 
     @Override
     public Question add(String question, String answer) {
-        Question newQuestion = new Question(question, answer);
-        if (questionRepository.contains(newQuestion)) {
-            throw new QuestionAlreadyAddedException("Такой вопрос уже существует!");
-        }
-        return questionRepository.add(newQuestion);
+        throw new MethodNotAllowedException("Данный метод не поддерживается");
     }
 
     @Override
     public Question remove(String question, String answer) {
-        Question newQuestion = new Question(question, answer);
-        if (!questionRepository.contains(newQuestion)) {
-            throw new QuestionNotFoundException("Такого вопроса не существует!");
-        }
-        return questionRepository.remove(newQuestion);
+        throw new MethodNotAllowedException("Данный метод не поддерживается");
     }
 
     @Override
     public Collection<Question> getAll() {
-        return questionRepository.getAll();
+        throw new MethodNotAllowedException("Данный метод не поддерживается");
+    }
+
+
+    private Collection<Question> createMathQuestions() {
+        Set<Question> mathQuestions = new HashSet<>();
+
+        while (mathQuestions.size() < getQuestionsAmount()) {
+            String question = questions.get(random.nextInt(questions.size()));
+            String answer = answers.get(random.nextInt(answers.size()));
+            mathQuestions.add(new Question(question, answer));
+        }
+
+        return mathQuestions;
     }
 
     @Override
     public Question getRandomQuestion() {
-        List<Question> questions = (List<Question>) questionRepository.getAll();
-
-        if (questions.size() > 0) {
-            return questions.get(random.nextInt(questions.size()));
-        }
-
-        throw new ListOfQuestionsIsEmptyException("Список вопросов пуст!");
+        List<Question> mathQuestions = new ArrayList<>(createMathQuestions());
+        return mathQuestions.get(random.nextInt(mathQuestions.size()));
     }
+
+    @Override
+    public int getQuestionsAmount() {
+        return questions.size();
+    }
+
 }

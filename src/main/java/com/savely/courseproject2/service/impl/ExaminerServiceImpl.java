@@ -10,37 +10,30 @@ import java.util.*;
 
 @Service
 public class ExaminerServiceImpl implements ExaminerService {
-
-    private final QuestionService javaQuestionService;
-    private final QuestionService mathQuestionService;
+    private final List<QuestionService> questionServices;
 
     public ExaminerServiceImpl(QuestionService javaQuestionService, QuestionService mathQuestionService) {
-        this.javaQuestionService = javaQuestionService;
-        this.mathQuestionService = mathQuestionService;
+        questionServices = new ArrayList<>();
+        questionServices.add(javaQuestionService);
+        questionServices.add(mathQuestionService);
+
     }
 
-    private Collection<Question> getQuestions(int amount, QuestionService questionService) {
+    @Override
+    public Collection<Question> getQuestions(int amount) {
         Set<Question> uniqueQuestions = new HashSet<>();
+        Random random = new Random();
+        int questionsAmount = questionServices.stream().mapToInt(QuestionService::getQuestionsAmount).sum();
 
-        if (questionService.getAll().size() < amount) {
+        if (questionsAmount < amount) {
             throw new AmountIsTooLargeException("Слишком большое количество вопросов!");
         }
 
         while (uniqueQuestions.size() < amount) {
-            uniqueQuestions.add(questionService.getRandomQuestion());
+            uniqueQuestions.add(questionServices.get(random.nextInt(questionServices.size())).getRandomQuestion());
         }
 
         return uniqueQuestions;
-    }
-
-    @Override
-    public Collection<Question> getJavaQuestions(int amount) {
-        return getQuestions(amount, javaQuestionService);
-    }
-
-    @Override
-    public Collection<Question> getMathQuestions(int amount) {
-        return getQuestions(amount, mathQuestionService);
     }
 
 }

@@ -86,4 +86,11 @@ class JavaQuestionServiceTest {
                 .isThrownBy(out::getRandomQuestion);
     }
 
+    @Test
+    void getQuestionsAmountTest() {
+        when(questionRepository.getAll()).thenReturn(List.of(QUESTION_OBJECT));
+
+        assertThat(out.getQuestionsAmount()).isEqualTo(questionRepository.getAll().size());
+    }
+
 }
