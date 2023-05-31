@@ -11,9 +11,11 @@ import java.util.*;
 @Service
 public class ExaminerServiceImpl implements ExaminerService {
     private final List<QuestionService> questionServices;
+    private final Random random;
 
     public ExaminerServiceImpl(QuestionService javaQuestionService, QuestionService mathQuestionService) {
         questionServices = new ArrayList<>();
+        random = new Random();
         questionServices.add(javaQuestionService);
         questionServices.add(mathQuestionService);
 
@@ -22,7 +24,6 @@ public class ExaminerServiceImpl implements ExaminerService {
     @Override
     public Collection<Question> getQuestions(int amount) {
         Set<Question> uniqueQuestions = new HashSet<>();
-        Random random = new Random();
         int questionsAmount = questionServices.stream().mapToInt(QuestionService::getQuestionsAmount).sum();
 
         if (questionsAmount < amount) {

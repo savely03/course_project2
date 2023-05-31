@@ -18,7 +18,8 @@ public class MathQuestionService implements QuestionService {
     private final Random random;
 
     public MathQuestionService(@Qualifier("getQuestions") List<String> questions,
-                               @Qualifier("getAnswers") List<String> answers) {
+                               @Qualifier("getAnswers") List<String> answers
+    ) {
         this.questions = questions;
         this.answers = answers;
         random = new Random();
@@ -39,11 +40,15 @@ public class MathQuestionService implements QuestionService {
         throw new MethodNotAllowedException("Данный метод не поддерживается");
     }
 
+    @Override
+    public int getQuestionsAmount() {
+        return questions.size();
+    }
 
     private Collection<Question> createMathQuestions() {
         Set<Question> mathQuestions = new HashSet<>();
 
-        while (mathQuestions.size() < getQuestionsAmount()) {
+        while (mathQuestions.size() < questions.size()) {
             String question = questions.get(random.nextInt(questions.size()));
             String answer = answers.get(random.nextInt(answers.size()));
             mathQuestions.add(new Question(question, answer));
@@ -56,11 +61,6 @@ public class MathQuestionService implements QuestionService {
     public Question getRandomQuestion() {
         List<Question> mathQuestions = new ArrayList<>(createMathQuestions());
         return mathQuestions.get(random.nextInt(mathQuestions.size()));
-    }
-
-    @Override
-    public int getQuestionsAmount() {
-        return questions.size();
     }
 
 }
