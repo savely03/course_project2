@@ -1,9 +1,6 @@
 package com.savely.courseproject2.handler;
 
-import com.savely.courseproject2.exception.AmountIsTooLargeException;
-import com.savely.courseproject2.exception.ListOfQuestionsIsEmptyException;
-import com.savely.courseproject2.exception.QuestionAlreadyAddedException;
-import com.savely.courseproject2.exception.QuestionNotFoundException;
+import com.savely.courseproject2.exception.*;
 import com.savely.courseproject2.util.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -34,6 +31,12 @@ public class GeneralExceptionHandler {
     @ExceptionHandler(QuestionNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Response handleQuestionNotFoundEx(QuestionNotFoundException e) {
+        return new Response(e.getMessage());
+    }
+
+    @ExceptionHandler(MethodNotAllowedException.class)
+    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+    public Response handleMethodNotAllowedEx(MethodNotAllowedException e) {
         return new Response(e.getMessage());
     }
 

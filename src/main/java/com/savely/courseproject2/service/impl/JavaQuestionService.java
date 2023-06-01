@@ -57,4 +57,9 @@ public class JavaQuestionService implements QuestionService {
 
         throw new ListOfQuestionsIsEmptyException("Список вопросов пуст!");
     }
+
+    @Override
+    public int getQuestionsAmount() {
+        return getAll().size();
+    }
 }
