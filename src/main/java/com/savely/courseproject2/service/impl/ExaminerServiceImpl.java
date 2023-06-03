@@ -13,12 +13,9 @@ public class ExaminerServiceImpl implements ExaminerService {
     private final List<QuestionService> questionServices;
     private final Random random;
 
-    public ExaminerServiceImpl(QuestionService javaQuestionService, QuestionService mathQuestionService) {
-        questionServices = new ArrayList<>();
+    public ExaminerServiceImpl(List<QuestionService> questionServices) {
+        this.questionServices = questionServices;
         random = new Random();
-        questionServices.add(javaQuestionService);
-        questionServices.add(mathQuestionService);
-
     }
 
     @Override

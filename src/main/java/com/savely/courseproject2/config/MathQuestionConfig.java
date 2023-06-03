@@ -15,7 +15,7 @@ public class MathQuestionConfig {
         List<String> questions = new ArrayList<>();
         Stream.iterate(1, i -> i + 1)
                 .limit(5)
-                .forEach(i -> questions.add("question" + i));
+                .forEach(i -> questions.add("math question" + i));
         return questions;
     }
 
@@ -24,7 +24,7 @@ public class MathQuestionConfig {
         List<String> answers = new ArrayList<>();
         Stream.iterate(1, i -> i + 1)
                 .limit(5)
-                .forEach(i -> answers.add("answer" + i));
+                .forEach(i -> answers.add("math answer" + i));
         return answers;
     }
 

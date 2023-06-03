@@ -2,14 +2,15 @@ package com.savely.courseproject2.service.impl;
 
 
 import com.savely.courseproject2.exception.AmountIsTooLargeException;
+import com.savely.courseproject2.service.ExaminerService;
 import com.savely.courseproject2.service.QuestionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Random;
 
 import static com.savely.courseproject2.constants.ExaminerServiceTestConstants.*;
@@ -23,13 +24,15 @@ class ExaminerServiceImplTest {
     @Mock
     private QuestionService questionService;
 
-    @InjectMocks
-    private ExaminerServiceImpl out;
-
     private final Random random = new Random();
+
+
+    private ExaminerService out;
+
 
     @BeforeEach
     void setUp() {
+        out = new ExaminerServiceImpl(List.of(questionService));
         when(questionService.getQuestionsAmount()).thenReturn(1);
     }
 
